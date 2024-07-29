@@ -1,5 +1,6 @@
 import express,{ Express,Request,Response } from "express";
 import authRoutes from "./routes/auth";
+import codeRoutes from "./routes/code";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -16,6 +17,7 @@ app.use(cors({
 
 
 app.use("/auth",authRoutes);
+app.use("/code",codeRoutes);
 
 const port=process.env.PORT || 3002;
 
