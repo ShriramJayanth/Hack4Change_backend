@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as https from 'https';
 import { IncomingMessage } from 'http';
+import { spawn } from 'child_process';
 
 // Function to decode Base64 encoded strings
 const decodeBase64 = (data: string | null): string | null => {
@@ -115,4 +116,41 @@ export const submitAndGetResult = async (req: Request, res: Response): Promise<v
 
   submitRequest.write(postData);
   submitRequest.end();
+};
+
+export const spawnCommand = (req: Request, res: Response): void => {
+  const command = req.body.command;
+  const args = req.body.args || [];
+
+  const child = spawn(command, args);
+
+  let stdoutData = '';
+  let stderrData = '';
+  let isResponseSent = false; // Flag to track if response is sent
+
+  child.stdout.on('data', (data) => {
+    stdoutData += data;
+  });
+
+  child.stderr.on('data', (data) => {
+    stderrData += data;
+  });
+
+  child.on('close', (code) => {
+    if (!isResponseSent) {
+      isResponseSent = true; // Mark response as sent
+      if (code !== 0) {
+        res.status(500).json({ error: stderrData });
+      } else {
+        res.status(200).json({ output: stdoutData });
+      }
+    }
+  });
+
+  child.on('error', (error) => {
+    if (!isResponseSent) {
+      isResponseSent = true; // Mark response as sent
+      res.status(500).json({ error: error.message });
+    }
+  });
 };

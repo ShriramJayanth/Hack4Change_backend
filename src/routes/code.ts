@@ -1,8 +1,9 @@
 import express from "express";
-import { submitAndGetResult} from "../controllers/code";
+import { spawnCommand, submitAndGetResult} from "../controllers/code";
 
-const router=express.Router();
+const router=express.Router();  
 
-router.post('/submit-code', submitAndGetResult);
+router.post('/python', submitAndGetResult);
+router.post("/bash",spawnCommand);
 
 export default router;
