@@ -18,6 +18,8 @@ app.use(cookieParser());
   
 // app.use(cors(corsOptions));
 
+app.use(cors());
+
 
 app.use("/auth",authRoutes);
 app.use("/code",codeRoutes);
