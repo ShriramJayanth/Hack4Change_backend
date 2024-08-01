@@ -11,12 +11,12 @@ const app:Express=express();
 app.use(express.json());
 app.use(cookieParser());
 
-const corsOptions = {
-    origin: 'https://hack4-change-front-end.vercel.app',
-    optionsSuccessStatus: 200,
-  };
+// const corsOptions = {
+//     origin: 'https://hack4-change-front-end.vercel.app',
+//     optionsSuccessStatus: 200,
+//   };
   
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 
 app.use("/auth",authRoutes);
