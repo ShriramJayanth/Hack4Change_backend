@@ -10,10 +10,10 @@ dotenv.config();
 const app:Express=express();
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({
-//   credentials:true,
-//   origin:["http://localhost:3000"],
-// }));
+app.use(cors({
+  credentials:true,
+  origin:["https://hack4-change-front-end.vercel.app/"],
+}));
 
 
 app.use("/auth",authRoutes);
