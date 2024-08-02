@@ -11,7 +11,13 @@ const app: Express = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors());
+const corsOptions ={
+   origin:'*', 
+   credentials:true,
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
 
 app.use("/auth", authRoutes);
 app.use("/code", codeRoutes);
