@@ -20,10 +20,11 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 app.options('*', cors(corsOptions));
 
-app.use("/auth", authRoutes);
-app.use("/code", codeRoutes);
+app.use("/auth", cors(corsOptions), authRoutes);
+app.use("/code", cors(corsOptions), codeRoutes);
 
 const port = process.env.PORT || 3002;
 
